@@ -1,0 +1,56 @@
+Legacy iOS Kit (Custom) 1.0.0
+Modified 2026-11-01; based on upstream 23622f8.
+
+Run ./restore.sh from the extracted folder. Keep bin and resources alongside it.
+Updates are checked against this fork's GitHub releases and offered optionally.
+No forced update or upstream branch switching is performed. No continues into
+the script. --no-update-check skips the check without disabling online features.
+Offline operations remain available; operations requiring internet still try
+and fail without a connection. If an online feature fails while connected,
+accept an available update at launch. Updates preserve saved files and retain
+previous program files under saved/updates; relaunch after an accepted update.
+
+For the untethered iOS 10 restore, select Restore/Downgrade > Latest iOS
+(10.3.4), a stock IPSW, Start Restore, and enable the jailbreak option.
+Read the warnings before continuing. This erases the device.
+
+The first boot may take longer than later boots. Allow time, complete Setup
+normally, and open Zebra from the Home Screen. No second DFU step or installer
+app is required. The post-restore screen-state question is no longer used.
+
+Do not enter pwnDFU manually through Useful Utilities: that route does not work
+with this custom restore flow. If pwnDFU fails after IPSW creation, relaunch,
+return through the same restore menu, select Reuse IPSW, and follow its DFU
+instructions. Use No at the reuse question whenever you want a fresh image.
+
+The RAM option uses about 6 GiB for temporary system images; 12 GB RAM or more
+is recommended. Linux /dev/shm needs at least 6 GiB available. Final IPSWs and
+logs remain on the disk containing this Kit folder, regardless of where the
+stock IPSW is stored. Image preparation requires at least 8 GiB free with RAM
+or 18 GiB without it; the later restore has a separate space check.
+
+Optional startup diagnostics save Terminal output in saved/diagnostics and
+show the log path. No automatic uploads. Review identifiers and local paths
+before sharing. Essential restore logs and reuse records are still saved under
+saved/ios10 when optional diagnostics are off. Keep them when reporting a
+problem. Do not upload the whole saved folder or your firmware images.
+
+Linux support has not been tested but is expected to work. Enable diagnostics
+and provide a log if a problem occurs. The existing host tools are unchanged
+in bin/macos and bin/linux, including Linux architecture subfolders. Device-side
+ARMv7 additions are shared by both hosts; they are not macOS executables.
+
+Read README.md for model test status, the iPad 4 untether reliability warning,
+Socket conflicts, CoolBooter Untetherer incompatibility, and support rules.
+The custom jailbreak integration supports Latest 10.3.4 (14G61) only; SHSH
+and other firmware routes are not supported for this option.
+
+Report issues to this fork first. Report to the original developer only after
+reproducing the issue with the official Legacy iOS Kit.
+
+Source checks (no device operations):
+    bash -n restore.sh
+    python3 -m unittest discover -s tests -v
+
+Original project: https://github.com/LukeZGD/Legacy-iOS-Kit
+Original author: LukeZGD. See LICENSE and bin/README.md for notices and credits.

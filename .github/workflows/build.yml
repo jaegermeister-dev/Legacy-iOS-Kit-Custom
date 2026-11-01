@@ -1,0 +1,33 @@
+name: Package standalone custom build
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate custom build
+        run: |
+          bash -n restore.sh
+          python3 -m unittest discover -s tests -v
+          test -s resources/custom-version
+          test -s resources/upstream-commit
+          test ! -e resources/new
+  package:
+    needs: validate
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Package complete source, binaries, and resources
+        run: |
+          git archive --format=tar.gz --prefix=Legacy-iOS-Kit-Custom/ \
+            --output="$RUNNER_TEMP/Legacy-iOS-Kit-Custom.tar.gz" HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Legacy-iOS-Kit-Custom
+          path: ${{ runner.temp }}/Legacy-iOS-Kit-Custom.tar.gz
+          compression-level: 0

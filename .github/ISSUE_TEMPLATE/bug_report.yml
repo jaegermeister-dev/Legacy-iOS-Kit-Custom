@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a problem with this fork.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report problems with this fork here. Contact the official Legacy iOS Kit developer only if you reproduced the same issue with the official Kit.
+        Linux support is untested but expected to work. Enable diagnostic logging at startup and include the saved log where possible. Review device identifiers and local paths before sharing; do not upload firmware images or the entire saved folder.
+  - type: input
+    id: version
+    attributes:
+      label: Custom Kit version
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: Host OS and architecture
+      placeholder: macOS or Linux version; Intel/AMD or ARM64
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device model and target iOS
+      placeholder: e.g. iPhone5,4, iOS 10.3.4
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Steps and observed result
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Diagnostic log or exact error
+      description: Drag the reviewed log into this field, or paste the relevant output.
